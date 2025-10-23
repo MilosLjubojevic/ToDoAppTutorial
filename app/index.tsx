@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { Button, FlatList, StyleSheet, View } from "react-native";
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
 
@@ -8,6 +8,7 @@ interface Goal {
   text: string;
 }
 export default function Index() {
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const [courseGoals, setCourseGoals] = useState<Goal[]>([]);
   function addGoalHandler(enteredGoalText: string) {
     setCourseGoals((currentGoals) => [
@@ -22,11 +23,21 @@ export default function Index() {
     );
   }
 
+  function handleModal() {
+    setModalIsVisible(!modalIsVisible);
+  }
+
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal={addGoalHandler} />
+      <Button title="Dodaj cilj" color="#D70CEB" onPress={handleModal} />
+      {modalIsVisible && (
+        <GoalInput
+          visible={modalIsVisible}
+          onAddGoal={addGoalHandler}
+          toggleModal={handleModal}
+        />
+      )}
       <View style={styles.goalsContainer}>
-        {" "}
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => (
@@ -47,6 +58,7 @@ const styles = StyleSheet.create({
     padding: 50,
     paddingHorizontal: 20,
     flex: 1,
+    backgroundColor: "#D198D6",
   },
   inputContainer: {
     flex: 1,

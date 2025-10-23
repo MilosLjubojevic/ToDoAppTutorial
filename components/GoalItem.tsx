@@ -7,7 +7,10 @@ interface GoalItemProps {
 
 function GoalItem(props: GoalItemProps) {
   return (
-    <Pressable onPress={props.onDeleteGoal}>
+    <Pressable
+      android_ripple={{ color: "#dddddd", borderless: false }}
+      onPress={props.onDeleteGoal}
+    >
       <View style={styles.goalItem}>
         <Text style={styles.goalText}>{props.item}</Text>
       </View>
@@ -20,10 +23,10 @@ const styles = StyleSheet.create({
   goalItem: {
     margin: 8,
     borderRadius: 6,
-    backgroundColor: "#5e0acc",
-    padding: 8,
+    backgroundColor: "#DE59EB",
   },
   goalText: {
     color: "white",
+    padding: 8,
   },
 });
